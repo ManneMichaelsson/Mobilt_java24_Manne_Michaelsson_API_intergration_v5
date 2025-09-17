@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
+import com.bumptech.glide.Glide
 import org.json.JSONException
 
 // I MovieDetailFragment.kt
@@ -23,6 +25,8 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
     private lateinit var releaseDateTextView: TextView
     private lateinit var voteCountTextView: TextView
 
+    private lateinit var moviePosterView: ImageView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -34,6 +38,7 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         actorsTextView = view.findViewById(R.id.detail_movie_actors)
         releaseDateTextView = view.findViewById(R.id.detail_movie_release_date)
         voteCountTextView = view.findViewById(R.id.detail_movie_vote_count)
+        moviePosterView = view.findViewById(R.id.detail_movie_poster)
 
         // Hämta film-ID:t från bundlen
         val movieId = arguments?.getInt("movie_id")
@@ -87,5 +92,19 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         scoreTextView.text = "Score: ${movie.voteAverage}"
         releaseDateTextView.text = "Släppningsdatum: ${movie.releaseDate}"
         voteCountTextView.text = "Votecount: ${movie.voteCount}"
+
+        // Fyll i platshållare för info som kräver ett annat API-anrop
+        directorTextView.text = "Regissör: Information saknas"
+        actorsTextView.text = "Skådespelare: Information saknas"
+
+        // ---- KORRIGERAD GLIDE-KOD ----
+        val baseUrl = "https://image.tmdb.org/t/p/w500"
+        val fullPosterUrl = baseUrl + movie.posterPath
+
+        Glide.with(this)  // FIX 1: Använd 'this' (fragmentet) som kontext
+            .load(fullPosterUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_foreground)
+            .into(moviePosterView) // FIX 2: Använd din ImageView-variabel
     }
 }

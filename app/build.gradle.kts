@@ -49,4 +49,6 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     //Volley - Gör HTTP förfrågningar enkelt (post, get, put osv)
     implementation("com.android.volley:volley:1.2.1")
+    //Glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }

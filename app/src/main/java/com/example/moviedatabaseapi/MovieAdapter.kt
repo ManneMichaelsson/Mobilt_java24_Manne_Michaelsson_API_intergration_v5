@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+
 
 class MovieAdapter(private var movieList: MutableList<Movie>, private val onMovieClickActionId: Int)
     : RecyclerView.Adapter<MovieAdapter.MovieViewHolder>() {
@@ -42,6 +44,17 @@ class MovieAdapter(private var movieList: MutableList<Movie>, private val onMovi
         holder.descriptionText.text = movie.description
         holder.scoreText.text = "Betyg: ${movie.voteAverage}"
         holder.posterImage.setImageResource(R.drawable.ic_launcher_background)
+
+        val baseUrl = "https://image.tmdb.org/t/p/w500"
+        val fullPosterUrl = baseUrl + movie.posterPath
+
+        // 2. Använd Glide för att ladda bilden
+        Glide.with(holder.itemView.context)  // Starta Glide och ge det kontext
+            .load(fullPosterUrl)              // Tala om vilken URL som ska laddas
+            .placeholder(R.drawable.ic_launcher_background) // (Valfritt) Visas medan bilden laddas
+            .error(R.drawable.ic_launcher_foreground)       // (Valfritt) Visas om ett fel uppstår
+            .into(holder.posterImage)         // Tala om vilken ImageView bilden ska in i
+
 
         holder.releaseDateText.text = "Släppningsdatum: ${movie.releaseDate}"
 
