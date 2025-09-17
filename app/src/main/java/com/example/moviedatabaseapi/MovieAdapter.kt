@@ -76,13 +76,13 @@ class MovieAdapter(private var movieList: MutableList<Movie>, private val onMovi
             val bundle = Bundle()
             bundle.putInt("movie_id", clickedMovieId)
 
-            // Använd det action-ID som skickades med till adaptern!
+            // Använd det action-ID som skickades med till adaptern
             holder.itemView.findNavController().navigate(onMovieClickActionId, bundle)
         }
     }
     fun updateMovies(newMovies: List<Movie>) {
-        movieList.clear()           // 1. Rensa den gamla listan
-        movieList.addAll(newMovies)   // 2. Lägg till alla nya filmer
-        notifyDataSetChanged()      // 3. Säg till RecyclerView att rita om allt!
+        movieList.clear()           // Rensa den gamla listan
+        movieList.addAll(newMovies)   //Lägg till alla nya filmer
+        notifyDataSetChanged()      //Säg till RecyclerView att rita om allt
     }
 }

@@ -97,14 +97,14 @@ class MovieDetailFragment : Fragment(R.layout.fragment_movie_detail) {
         directorTextView.text = "Regissör: Information saknas"
         actorsTextView.text = "Skådespelare: Information saknas"
 
-        // ---- KORRIGERAD GLIDE-KOD ----
+        //använder glider för att ladda bilder
         val baseUrl = "https://image.tmdb.org/t/p/w500"
         val fullPosterUrl = baseUrl + movie.posterPath
 
-        Glide.with(this)  // FIX 1: Använd 'this' (fragmentet) som kontext
+        Glide.with(this)
             .load(fullPosterUrl)
             .placeholder(R.drawable.ic_launcher_background)
             .error(R.drawable.ic_launcher_foreground)
-            .into(moviePosterView) // FIX 2: Använd din ImageView-variabel
+            .into(moviePosterView)
     }
 }
