@@ -48,12 +48,12 @@ class MovieAdapter(private var movieList: MutableList<Movie>, private val onMovi
         val baseUrl = "https://image.tmdb.org/t/p/w500"
         val fullPosterUrl = baseUrl + movie.posterPath
 
-        // 2. Använd Glide för att ladda bilden
-        Glide.with(holder.itemView.context)  // Starta Glide och ge det kontext
-            .load(fullPosterUrl)              // Tala om vilken URL som ska laddas
-            .placeholder(R.drawable.ic_launcher_background) // (Valfritt) Visas medan bilden laddas
-            .error(R.drawable.ic_launcher_foreground)       // (Valfritt) Visas om ett fel uppstår
-            .into(holder.posterImage)         // Tala om vilken ImageView bilden ska in i
+        // Använder Glide för att ladda bilden
+        Glide.with(holder.itemView.context)
+            .load(fullPosterUrl)
+            .placeholder(R.drawable.ic_launcher_background)
+            .error(R.drawable.ic_launcher_foreground)
+            .into(holder.posterImage) //sätter in bilden
 
 
         holder.releaseDateText.text = "Släppningsdatum: ${movie.releaseDate}"
